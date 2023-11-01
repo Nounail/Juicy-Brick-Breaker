@@ -4,6 +4,22 @@ var min_speed = 100.0
 var max_speed = 600.0
 var speed_multiplier = 1.0
 var accelerate = false
+var decay = 0.04
+
+var time_highlight = 0.4
+var time_highlight_size = 0.3
+
+var wobble_period = 0.0
+var wobble_amplitude = 0.0
+var wobble_max = 5
+var wobble_direction = Vector2.ZERO
+var decay_wobble = 0.15
+
+var tween
+
+var distort_effect = 0.0002
+
+var h_rotate = 0.0
 
 var released = true
 
@@ -24,7 +40,9 @@ func _on_Ball_body_entered(body):
 	if body.has_method("hit"):
 		body.hit(self)
 		accelerate = true	
-
+	if tween:
+		tween.kill()
+		
 func _input(event):
 	if not released and event.is_action_pressed("release"):
 		apply_central_impulse(initial_velocity)
@@ -35,7 +53,9 @@ func _integrate_forces(state):
 		var paddle = get_node_or_null("/root/Game/Paddle_Container/Paddle")
 		if paddle != null:
 			state.transform.origin = Vector2(paddle.position.x, paddle.position.y - 30)	
-
+	
+	wobble()
+	
 	if position.y > Global.VP.y + 100:
 		die()
 	if accelerate:
@@ -48,12 +68,30 @@ func _integrate_forces(state):
 	if state.linear_velocity.length() > max_speed * speed_multiplier:
 		state.linear_velocity = state.linear_velocity.normalized() * max_speed * speed_multiplier
 
+
 func change_size(s):
-	$ColorRect.scale = s
+	$Images/Ball.scale = s
 	$CollisionShape2D.scale = s
 
 func change_speed(s):
 	speed_multiplier = s
+
+func wobble():
+	wobble_period += 1
+	if wobble_amplitude > 0:
+		var pos = wobble_direction * wobble_amplitude * sin(wobble_period)
+		$Images.position = pos
+		wobble_amplitude -= decay_wobble
+
+func comet():
+	h_rotate = wrapf(h_rotate+0.01, 0, 1)
+	var comet_container = get_node_or_null("/root/Game/Comet_Container")
+	if comet_container != null:
+		var sprite = $Images/Sprite.duplicate()
+		sprite.global_position = global_position
+		sprite.modulate.s = 0.6
+		sprite.modulate.h = h_rotate
+		comet_container.add_child(sprite)
 
 func die():
 	queue_free()

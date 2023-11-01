@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://ei3ny6s8bla5"]
+[gd_scene load_steps=7 format=3 uid="uid://ei3ny6s8bla5"]
 
 [ext_resource type="Script" path="res://UI/Main_Menu.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dg5xdxipguxv2" path="res://Assets/Background.jpg" id="2_mvdgv"]
+[ext_resource type="FontFile" uid="uid://cu5m6otv01bct" path="res://Assets/fonts/connection/ConnectionBold.otf" id="3_yv0gq"]
+[ext_resource type="FontFile" uid="uid://ws8lrwgukgte" path="res://Assets/fonts/connection/Connection.otf" id="4_blg0y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_catf4"]
+bg_color = Color(0, 0, 1, 0.337255)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_size = 3
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8dqgj"]
+bg_color = Color(1, 0, 0, 0.427451)
+border_color = Color(0.427451, 0.843137, 0.909804, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -11,20 +31,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.501961)
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -248.0
-text = "Brick Breaker"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(578.5, 409)
+scale = Vector2(1.12402, 0.785156)
+texture = ExtResource("2_mvdgv")
 
 [node name="Play" type="Button" parent="."]
 layout_mode = 1
@@ -33,12 +43,26 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -20.0
-offset_right = 100.0
-offset_bottom = 20.0
+offset_left = -119.0
+offset_top = 119.0
+offset_right = 81.0
+offset_bottom = 167.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.0629, 1)
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0.752941, 0.796078, 1)
+theme_override_colors/icon_normal_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/h_separation = 15
+theme_override_constants/icon_max_width = -13
+theme_override_fonts/font = ExtResource("4_blg0y")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_catf4")
 text = "Play"
 
 [node name="Quit" type="Button" parent="."]
@@ -48,12 +72,31 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = 40.0
-offset_right = 100.0
-offset_bottom = 80.0
+offset_left = -119.0
+offset_top = 191.0
+offset_right = 81.0
+offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 1, 0.0823529, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_constants/h_separation = 15
+theme_override_constants/icon_max_width = 8
+theme_override_fonts/font = ExtResource("3_yv0gq")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_8dqgj")
 text = "Quit"
 
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]

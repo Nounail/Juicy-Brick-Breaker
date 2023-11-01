@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bd5m3yq1k5fx8"]
+[gd_scene load_steps=17 format=3 uid="uid://bd5m3yq1k5fx8"]
 
 [ext_resource type="Script" path="res://Brick/Brick_Container.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://dmwf8wjdir6y5" path="res://Paddle/Paddle.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://b2we7ts5ebjvj" path="res://Assets/Untitled.png" id="2_j8uah"]
 [ext_resource type="Script" path="res://Ball/Ball_Container.gd" id="3"]
 [ext_resource type="Script" path="res://Game.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://ci5q3vmuimsfr" path="res://UI/Pause_Menu.tscn" id="5"]
@@ -9,6 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://do7pdpjxteg8e" path="res://UI/HUD.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://r1nm10jeqyta" path="res://UI/Instructions.tscn" id="8"]
 [ext_resource type="Script" path="res://Effects/Fever.gd" id="9"]
+[ext_resource type="AudioStream" uid="uid://d0j31dtywi2sv" path="res://Assets/Untitled score.mp3" id="10_i41ea"]
+[ext_resource type="AudioStream" uid="uid://cq6vyxnk7comj" path="res://Assets/paddle.wav" id="11_8ymur"]
+[ext_resource type="AudioStream" uid="uid://bpn6wccxchg4h" path="res://Assets/Wall.wav" id="12_bu7gl"]
+[ext_resource type="AudioStream" uid="uid://btwsv5h0lm0oc" path="res://Assets/Loseball.wav" id="13_gvcn8"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(200, 1000)
@@ -19,7 +24,15 @@ size = Vector2(1224, 200)
 [node name="Game" type="Node2D"]
 script = ExtResource("4")
 
+[node name="Untitled" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.376471)
+self_modulate = Color(1, 1, 1, 0.376471)
+position = Vector2(553, 400)
+scale = Vector2(1.10001, 0.822)
+texture = ExtResource("2_j8uah")
+
 [node name="Wall_Container" type="Node2D" parent="."]
+scale = Vector2(1.01168, 1.00443)
 
 [node name="Wall_Left" type="StaticBody2D" parent="Wall_Container"]
 script = ExtResource("6")
@@ -35,6 +48,7 @@ position = Vector2(1152, 2.08165e-12)
 script = ExtResource("6")
 
 [node name="ColorRect" type="ColorRect" parent="Wall_Container/Wall_Right"]
+color = Color(0.529412, 1, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall_Container/Wall_Right"]
 position = Vector2(90, 400)
@@ -61,6 +75,7 @@ position = Vector2(578, 720)
 script = ExtResource("3")
 
 [node name="Powerup_Container" type="Node2D" parent="."]
+scale = Vector2(1.35754, 1.78698)
 
 [node name="Fever" type="Node2D" parent="."]
 script = ExtResource("9")
@@ -75,9 +90,22 @@ visible = false
 [node name="Pause_Menu" parent="UI" instance=ExtResource("5")]
 process_mode = 3
 visible = false
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Instructions" parent="UI" instance=ExtResource("8")]
+
+[node name="Music_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_i41ea")
+autoplay = true
+
+[node name="Paddle_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_8ymur")
+
+[node name="Brick_Sound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Wall_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_bu7gl")
+
+[node name="Die_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_gvcn8")
 
 [connection signal="timeout" from="Fever/Timer" to="Fever" method="_on_Timer_timeout"]
